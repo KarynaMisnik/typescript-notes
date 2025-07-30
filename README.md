@@ -3,6 +3,7 @@
 ## Menu
 
 - [The Backstory](#the-backstory)
+- [How TS runs](#how-ts-runs)
 
 ## The Backstory
 
@@ -88,3 +89,87 @@ So it’s not a new language from scratch — it’s more like JavaScript++ with
 🧠 Summary
 
 TypeScript was created by Anders Hejlsberg at Microsoft in 2012 to solve theproblem of JavaScript not scaling well for large applications. It adds optionalstatic typing, tooling support, and modern features while staying compatible withJavaScript. It's now a core part of the modern web development stack.
+
+## How TS runs
+
+🧠 First: TypeScript Is Not a Runtime Language
+
+TypeScript doesn’t run — it transpiles to JavaScript, which does run.
+
+🚦 The Lifecycle of a TypeScript File
+
+Step 1: You write TypeScript
+
+```ts
+function add(a: number, b: number): number {
+  return a + b;
+}
+```
+
+Step 2: TypeScript Compiler (tsc) checks your code
+
+It parses the file into an **Abstract Syntax Tree (AST)**
+
+It type-checks that your code is valid:
+
+Are <code>a</code> and <code>b</code> numbers?
+
+Does the return type match?
+
+If there’s a problem, it reports at compile time
+
+If not, it moves on to...
+
+Step 3: Transpilation to JavaScript
+
+```ts
+function add(a, b) {
+  return a + b;
+}
+```
+
+The type annotations are completely removed. They are only for your development-time safety and clarity.
+
+This JavaScript is what’s actually run by the JS engine (V8, SpiderMonkey, etc.)
+
+⚙️ TypeScript vs JavaScript Engine
+
+| Concern                               | TypeScript handles        | JavaScript engine handles |
+| ------------------------------------- | ------------------------- | ------------------------- |
+| Type checking                         | ✅                        | ❌                        |
+| Type annotations                      | ✅ (strips them)          | ❌                        |
+| Transpilation                         | ✅                        | ❌                        |
+| Runtime execution                     | ❌                        | ✅                        |
+| Error reporting                       | Compile-time              | Runtime only              |
+| Modern JS features support            | ✅ (even before browsers) | ✅                        |
+| Memory management, garbage collection | ❌                        | ✅                        |
+
+So TypeScript is a compile-time helper. It makes sure your code is more likely to work at runtime, but it has no presence at runtime.
+
+🧰 What Does the TypeScript Compiler (tsc) Do?
+
+The compiler does 3 main things:
+
+Parsing – turns your <code>.ts</code> file into a syntax tree
+
+Type checking – uses the TS type system to validate your code
+
+Emitting JavaScript – produces <code>.js</code> output that removes all TS-specific syntax
+
+🧪 What Makes TS Powerful?
+
+Structural typing (aka "duck typing"): TS types are based on shape, not classes
+
+Type inference: You don’t have to annotate everything — TS infers from usage
+
+Generics: Add type-safe flexibility to your functions and components
+
+Control Flow Analysis: TS can track how types change through conditions:
+
+```ts
+function print(x: string | number) {
+  if (typeof x === "string") {
+    // here x is narrowed to string
+  }
+}
+```
