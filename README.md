@@ -4,8 +4,8 @@
 
 - [The Backstory](#the-backstory)
 - [How TS runs](#how-ts-runs)
-
-* [Type System Design in TypeScript](#type-system-design-in-typescript)
+- [Type System Design in TypeScript](#type-system-design-in-typescript)
+  - [How Are Types Checked?](#how-are-types-checked)
 
 ## The Backstory
 
@@ -274,3 +274,32 @@ function identity<T>(value: T): T {
 ```
 
 > Generics keep type relationships intact — they’re the core of reusable, type-safe abstractions.
+
+#### 🧪 How Are Types Checked?
+
+The TypeScript compiler uses structural typing (not nominal typing like Java or C#).
+
+If it looks like the expected type (structure-wise), it is acceptable.
+
+This means:
+
+```ts
+type Point = { x: number; y: number };
+
+const a = { x: 1, y: 2, z: 3 }; // extra property is OK
+const b: Point = a; // ✅ This works (extra props ignored)
+```
+
+Type Checking Process
+
+1. TS builds an AST (Abstract Syntax Tree) from your code
+
+2. It maps type annotations and inferences
+
+3. It uses flow analysis to track variable types
+
+4. It compares the structure of values against expected types
+
+5. If it finds a mismatch, it throws a compile-time error
+
+It’s not runtime type checking — your program will still run even if your types are wrong (unless you catch them during build or test).
