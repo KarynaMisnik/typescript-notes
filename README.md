@@ -5,6 +5,8 @@
 - [The Backstory](#the-backstory)
 - [How TS runs](#how-ts-runs)
 
+* [Type System Design in TypeScript](#type-system-design-in-typescript)
+
 ## The Backstory
 
 TypeScript was created by Microsoft, led by **<a href='https://en.wikipedia.org/wiki/Anders_Hejlsberg'>Anders Hejlsberg</a>**, who also created:
@@ -172,4 +174,23 @@ function print(x: string | number) {
     // here x is narrowed to string
   }
 }
+```
+
+## Type System Design in TypeScript
+
+💡 What Are Types?
+
+A type is a description of what a value is allowed to be.
+TypeScript types model the shape of your data, so you can reason about it at compile time, before the code runs.
+
+🔹 Primitive Types
+
+These represent the basic building blocks of data:
+
+```ts
+let x: string = "hello";
+let y: number = 42;
+let z: boolean = true;
+let n: null = null;
+let u: undefined = undefined;
 ```
