@@ -194,3 +194,33 @@ let z: boolean = true;
 let n: null = null;
 let u: undefined = undefined;
 ```
+
+> These match JavaScript’s typeof values.
+
+🔹 Literal Types
+
+A literal type restricts a value to exactly one option:
+
+```ts
+let color: "red"; // only allowed to be "red"
+```
+
+🔹 Union Types
+
+A union type means a value can be one of several types:
+
+```ts
+let direction: "left" | "right" | "up" | "down";
+let id: number | string;
+```
+
+> Very useful for modeling flexible APIs and conditional logic.
+
+🔹 Tuple Types
+
+Tuples are fixed-length arrays with known types at each position:
+
+```ts
+let point: [number, number] = [3, 4];
+let userEntry: [string, number, boolean] = ["Alice", 30, true];
+```
