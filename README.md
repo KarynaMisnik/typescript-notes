@@ -224,3 +224,53 @@ Tuples are fixed-length arrays with known types at each position:
 let point: [number, number] = [3, 4];
 let userEntry: [string, number, boolean] = ["Alice", 30, true];
 ```
+
+🔹 Object Types (including interfaces)
+
+These define structured shapes:
+
+```ts
+type User = {
+  id: number;
+  name: string;
+  isAdmin?: boolean; // optional property
+};
+```
+
+> Interfaces and types both let you model object structures, but interfaces also support inheritance.
+
+🔹 Enum Types (optional, use with caution)
+
+Enums give named constants:
+
+```ts
+enum Role {
+  Admin,
+  Editor,
+  Viewer,
+}
+```
+
+They compile to JavaScript, unlike most TS-only types. Some devs prefer <code>union</code> string literals instead (<code>"admin" | "editor"</code>).
+
+🔹 Function Types
+
+You can describe inputs and outputs:
+
+```ts
+let sum: (a: number, b: number) => number;
+```
+
+> You can also describe callbacks, overloads, and currying.
+
+🔹 Generic Types
+
+Used to define types that work over a range of types:
+
+```ts
+function identity<T>(value: T): T {
+  return value;
+}
+```
+
+> Generics keep type relationships intact — they’re the core of reusable, type-safe abstractions.
