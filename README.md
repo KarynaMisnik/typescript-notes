@@ -6,6 +6,7 @@
 - [How TS runs](#how-ts-runs)
 - [Type System Design in TypeScript](#type-system-design-in-typescript)
   - [How Are Types Checked?](#how-are-types-checked)
+  - [How Are Types Inferred?](#how-are-types-inferred)
 
 ## The Backstory
 
@@ -303,3 +304,68 @@ Type Checking Process
 5. If it finds a mismatch, it throws a compile-time error
 
 It’s not runtime type checking — your program will still run even if your types are wrong (unless you catch them during build or test).
+
+#### 🔍 How Are Types Inferred?
+
+TypeScript uses type inference to reduce how much you have to annotate manually.
+
+🔸 Basic inference
+
+```ts
+let count = 10; // inferred as number
+let name = "Alex"; // inferred as string
+```
+
+> TS infers from the initial value.
+
+🔸 Contextual typing
+
+In functions or callbacks, the context can drive inference:
+
+```ts
+window.addEventListener("click", (event) => {
+  // TS knows event is a MouseEvent here
+  console.log(event.clientX);
+});
+```
+
+🔸 Return type inference
+
+If you don’t specify a return type, TS will infer it from the return expression:
+
+```ts
+function square(x: number) {
+  return x * x; // inferred return type: number
+}
+```
+
+> But in complex functions, explicit types are better for clarity and safety.
+
+🔸 Best Common Type Inference
+
+For arrays and unions:
+
+```ts
+let items = [1, 2, 3]; // inferred: number[]
+let mix = [1, "two", true]; // inferred: (string | number | boolean)[]
+```
+
+> TS looks for a "best common type" to describe everything in the array.
+
+🔸 Control Flow Type Analysis
+
+TypeScript tracks variable types as your logic runs:
+
+```ts
+function print(value: string | number) {
+  if (typeof value === "string") {
+    // TS narrows the type here to string
+    console.log(value.toUpperCase());
+  } else {
+    // here it's number
+    console.log(value.toFixed(2));
+  }
+}
+```
+
+> This dynamic narrowing makes code both safe and flexible.
